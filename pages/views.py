@@ -1,0 +1,12 @@
+from django.http import HttpResponse
+from django.shortcuts import render
+
+def index(request):
+    #ilk olarak index.html dosyasını bulnduğu uygulamada(dizinde arar)
+    return render(request,'pages/index.html')
+
+def contact(request):
+    return render(request,'pages/contact.html')
+
+def about(request):
+    return render(request,'pages/about.html')
