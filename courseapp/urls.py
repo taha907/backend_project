@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.urls import path, include
 
 
-
+#buraya yeni bir değişiklik yaptım
 urlpatterns = [
     path('', include('pages.urls')),
     path('kurslar/',include('courses.urls')),
