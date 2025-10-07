@@ -4,6 +4,7 @@ from django.urls import path, include
 
 
 #buraya yeni bir değişiklik yaptım
+#ama githubda tekrar düzenledim.
 urlpatterns = [
     path('', include('pages.urls')),
     path('kurslar/',include('courses.urls')),
