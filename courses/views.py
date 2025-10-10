@@ -10,11 +10,10 @@ data = {"programlama":"programlama kategorisine ait kurslar",
 
 db = {
     "courses": [
-
         {
             "title":"javascript kursu",
             "description":"javascript kursunun açıklamasıdır.",
-            "imageUrl":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuHnJDLOcdm_0b6N6kNj-1OvO9KhKYgqIy0w&s",
+            "imageUrl":"1.png",
             "slug":"javascript-kursu",
             "date": date(2022,10,10),
             "isActive":True
@@ -22,7 +21,7 @@ db = {
          {
             "title":"python kursu",
             "description":"python kursunun açıklamasıdır.",
-            "imageUrl":"https://www.vektorelbilisim.com.tr/images/kurslar/python-logo.webp",
+            "imageUrl":"2.jpg",
             "slug":"python-kursu",
             "date": date(2023,10,10),
             "isActive":True
@@ -30,7 +29,7 @@ db = {
         {
             "title":"web geliştirme kursu",
             "description":"web kursunun açıklamasıdır.",
-            "imageUrl":"https://www.sibermega.com.tr/wp-content/uploads/2024/07/html-etiketleri-tags-1.jpg",
+            "imageUrl":"3.jpg",
             "slug":"web-geliştirme",
             "date": date(2024,10,10),
             "isActive":True
