@@ -4,12 +4,13 @@ from django.urls import reverse
 from datetime import date
 
 data = {"programlama":"programlama kategorisine ait kurslar",
-        "web-geliştirme":"web-geliştirme kategorisine ait kurslar",
-        "mobil-geliştirme":"mobil geliştirme kategorisine ait kurslar"
+        "web-gelistirme":"web-geliştirme kategorisine ait kurslar",
+        "mobil-uygulama":"mobil geliştirme kategorisine ait kurslar"
 }
 
 db = {
     "courses": [
+
         {
             "title":"javascript kursu",
             "description":"javascript kursunun açıklamasıdır.",
@@ -21,7 +22,7 @@ db = {
          {
             "title":"python kursu",
             "description":"python kursunun açıklamasıdır.",
-            "imageUrl":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuHnJDLOcdm_0b6N6kNj-1OvO9KhKYgqIy0w&s",
+            "imageUrl":"https://www.vektorelbilisim.com.tr/images/kurslar/python-logo.webp",
             "slug":"python-kursu",
             "date": date(2023,10,10),
             "is-active":False
@@ -29,22 +30,28 @@ db = {
         {
             "title":"web geliştirme kursu",
             "description":"web kursunun açıklamasıdır.",
-            "imageUrl":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuHnJDLOcdm_0b6N6kNj-1OvO9KhKYgqIy0w&s",
-            "slug":"web-geliştirme-kursu",
+            "imageUrl":"https://www.sibermega.com.tr/wp-content/uploads/2024/07/html-etiketleri-tags-1.jpg",
+            "slug":"web-geliştirme",
             "date": date(2024,10,10),
             "is-active":True
-        }]
+        }],
+    "categories" : [
+        {"id":1, "name":"programlama","slug":"programlama"},
+        {"id":2, "name":"web geliştirme","slug":"web-gelistirme"},
+        {"id":3, "name":"mobil uygulama","slug":"mobil-uygulama"}]
 }
 
 def index(request):
-    category_list = list(data.keys())
+    kategoriler = db["categories"]
+    kurslar = db["courses"]
     #html'ye liste şeklinde action'dan 3. parametre kullanarak veri yolladık -> categories değişkeni ile
-    return render(request,'courses/index.html',{'categories': category_list})
+    return render(request,'courses/index.html',{'categories': kategoriler,
+                                                'courses':kurslar})
 
 def details(request,kurs_adi):
     return HttpResponse(f"{kurs_adi} kursunun detay sayfası")
 
-def getCoursesByCategory(request,category_name):   
+def getCoursesByCategory(request,category_name):
     try:    
         category_text = data[category_name]
         return render(request,"courses/kurslar.html",{

@@ -1,9 +1,8 @@
- <!--menu-->
                 
                 <div class="list-group"> 
 
                     {% for category in categories %}
-                      <a href="{% url 'courses_by_category' category %}" class="list-group-item list-group-item-list">{{ category }}</a>
+                      <a href="{% url 'courses_by_category' category.slug %}" class="list-group-item list-group-item-list">{{ category.name }}</a>
                     {% endfor %}          
 
                 </div>       
