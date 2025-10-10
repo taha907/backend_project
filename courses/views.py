@@ -17,7 +17,7 @@ db = {
             "imageUrl":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuHnJDLOcdm_0b6N6kNj-1OvO9KhKYgqIy0w&s",
             "slug":"javascript-kursu",
             "date": date(2022,10,10),
-            "is-active":True
+            "isActive":True
         },
          {
             "title":"python kursu",
@@ -25,7 +25,7 @@ db = {
             "imageUrl":"https://www.vektorelbilisim.com.tr/images/kurslar/python-logo.webp",
             "slug":"python-kursu",
             "date": date(2023,10,10),
-            "is-active":False
+            "isActive":True
         },
         {
             "title":"web geliştirme kursu",
@@ -33,7 +33,7 @@ db = {
             "imageUrl":"https://www.sibermega.com.tr/wp-content/uploads/2024/07/html-etiketleri-tags-1.jpg",
             "slug":"web-geliştirme",
             "date": date(2024,10,10),
-            "is-active":True
+            "isActive":True
         }],
     "categories" : [
         {"id":1, "name":"programlama","slug":"programlama"},
@@ -43,10 +43,15 @@ db = {
 
 def index(request):
     kategoriler = db["categories"]
-    kurslar = db["courses"]
+    kurslar = []
+    for kurs in db["courses"]:
+        if kurs["isActive"]:
+            kurslar.append(kurs)
+            
     #html'ye liste şeklinde action'dan 3. parametre kullanarak veri yolladık -> categories değişkeni ile
     return render(request,'courses/index.html',{'categories': kategoriler,
                                                 'courses':kurslar})
+
 
 def details(request,kurs_adi):
     return HttpResponse(f"{kurs_adi} kursunun detay sayfası")
