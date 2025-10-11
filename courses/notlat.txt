@@ -1,0 +1,53 @@
+root root
+
+LOCAL STATİC FİLES --> uygulama seviyesinde bulunan static klasörü local static dosyaların saklandığı klasördür. UYGULAMA SEVİYESİDİR
+{{static/course|add:course.imageUrl}}  burda |add: filter işlemidir. 
+ static dosyaları kullanma --> Ana app setting dosyası içinde geçen STATIC_URL = 'static/' ifadesi, default olarak alt applerde statik klasörünün açık olduğunu söyler. templatte olduğu gibi appleri ayıtmak için (örnek olarak course appi için)static/courses olarak oluşturulur
+ static kelimesini html içinde kullanıyorsan en başa load static eklemelisin!
+
+GLOBAL STATİC FİLES   ->  default olarak ana uygulama altında static klasörü oluyor global klasör. PROJE SEVİYESİDİR
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",      ---> global seviyede static klasörün ismini tanımlama. Direk ana app altında ve applerinde arayacak.
+]
+
+Model --> Veri tabanındaki tablolara eşdeğerdir
+
+Oluşturulan Model yapısı        <--     Migrations    -->            VeriTabanı
+				                aradaki bağlantıyı sağlar
+
+python manage.py makemigrations --> Model (örneğin models.py) dosyasında yapılan değişiklikleri alır ve bu değişiklikleri bir “göç dosyası” (migration file) haline getirir.
+
+python manage.py migrate  --> Hazırlanan migration dosyalarını alır ve veritabanına uygular.
+
+
+python manage.py runserver komutundan sonra uygulanmamış kaç migrations var uyarısını verir.
+
+<-------->   Kayıt Ekleme   <-------->
+python manage.py shell
+from courses.models import course
+from datetime import datetime
+kurs1 = Course(title="btk yazılım kursu",description="güzel kurs",imageUrl="1.jpg",date=datetime.now(),isActive=1)
+kurs1.save()
+kurs2 = Course(title="AI kursu",description="etkileyici",imageUrl="2.jpg",date=datetime.now(),isActive=1)
+kurs2.save()
+kurs1.title -> "btk yazılım kursu"
+
+
+<-------->   KAYIT SORGULAMA   <-------->
+from courses.models import Course
+Course --> Courses appine ait bir model olduğunu gösterir
+kurslar = Course.objects.all() -> kayıtlı nesneleri gösterir (tablodaki her satıra karşılık)
+kurslar[0] --> tablodaki kayıtlı ilk objeyi getirir
+kurslar[0].title --> "btk yazılım kursu"
+kurs1 = Course.objects.get(pk=1) -> pk=1 olan objeyi kurs1 değişkenine attı
+kurs1.title --> ""btk yazılım kursu
+kurs1  --> Course modelinde 1. obje olduğunu gösterir.
+quit()
+
+<-------->   KAYIT FİLTRELEME  <-------->
+from courses.models import Course --> Course modelini kullan
+Course.objects.filter(isActive=1)
+Course.objects.filter(date__gt='2022-01-02') --> bu tarihten önceki objeleri listeler. bu kod migratiın ile sql diline sorgu yollanırken (SELECT * FROM blog_entry WHERE pub_date <= '2006-01-01';) olur.
+ Course.objects.filter(title__contains=""kurs,isActive=1)  -- 2 koşul içeren bir filtreleme
+ 
