@@ -1,0 +1,114 @@
+pwd -> bukunduğun dizini gösterir
+
+:q    -> kaçış karakteri
+
+mkdir -> klasör oluşturma
+
+touch not.txt -> dosya oluşturur        
+powershell  ni not.txt -i file
+
+rm not.txt -> dosyayı siler () alt klasörde veya aynı dizinde bulunmalı
+rm -rf git-Klasörü -> klasörü siler
+
+git config --global user.name "Muhammed Taha Kızıkoğlu"
+git config --global user.email "tkizikoglu10@gmail.com"
+terminalde bu bölümde yazan bilglerin sahibi tarafından commit atıldığı repoda gözükür. hangi e posta ve siim yazılıysa o atmış gibi görünecektir.
+
+git init    -> giti başlatır. bir kere başlatılırsa git status ile bilgi varsa tekrar başlatma çakışır.
+rm -rf .git  ->  başlatılan giti siler 
+git status  -> git durumunu gösterir
+
+git add   ->dosyaadi.txt tek dosyayı sahneye alır
+git add . -> tüm değişiklikleri (modifier) ara sahneye alır
+git commit -m "ilk commit atıldı"
+
+gitignore -> .gitignore dosyası projemizin kök dizinine oluşturulan düz bir metin dosyasıdır. Adından anlaşıldığı gibi diyor ki beni göz ardı et. Daha doğrusu göz ardı etmek istediğin, local çalışma alanındaki takip edilmesini istemediğin, takım arkadaşların için gerekmeyen dosyaların varsa veya bu dosyaların boyutu reponuza atmanıza gerek olmayacak kadar büyük ölçekli ise buyur beni kullan diyor. Gel bu dosyaları .gitignore dosyasına koy ki GIT de senin bu dosyalarını artık takip etmesin. Üstelik bu işlemler yapılırken senin halihazırdaki dosyalarını da hiç bir şekilde etkilemesin. Daha ne olsun!
+gizli tutulan dosyalar ara sahneye alınmaz commit edilemez!
+
+git branch feat -> yeni branch
+git branch -> aktif branchleri gösterir
+git switch feat -> branch değiştirir
+git merge master -> branch birleştir
+
+feat branchine master branchinden geçince ve masterda silinse dahi aktif şeyler eski branchi etkilemez. yani yeni brancte yapılan değişiklik eski branci etkilemez 
+
+
+ git log --oneline --graph --all   -> tüm commit branch görseli
+
+
+             ÇAKIŞMA YOK (FAST FORWARD)
+fast forward -> en basit merge senaryosu 
+		masterda bir şey yapılmıyor featte yapılıyo ve 
+		master feat ile merge edilince direkt head masterı gösteriyo ve 
+		featteki yenilikler mastera gelip feat son commit oluyo.
+
+
+		
+		ÇAKIŞMA VARSA (MERGE CONFLİCT)
+ya eski dosyayı koru
+ya yeni değişikliği koru 
+ya da ikisini birleştirip yeniden düzenle
+
+
+
+PATRON ACİL BRANCH DEĞİŞTİR DEDİ
+git restore not.txt  (dosyayı CTRL+Z yapar)  --> 
+commit etmeye hazır olunmayacak, branch değiştirilecek, yaptığım değişikleride kaybetmeyeyim. Stash ek bir alan açar sahne harici git içinde.
+git stash --> zulalamak istenen değişiklikler için
+git pop  --> uygulanmak istenen yerde çalıştırır
+
+
+
+GERİYE DÖNMEK?
+git checkout 32KOF23KPF2K313FKPOKFOWEPKFF67U6Y5T4
+ veya  
+önceki bir commite giderek --> yeni branch açıp commit atmak  veya
+mastera geri dönebilirsin (mastera dönerken son değişiklik yapıp commit atarsan kabul olmaz)
+
+6 COMMİTLİK MASTER BRANCH 4. COMMİTTESİN. 5 VE 6 YI SİLMEK İSTİYORSUN (ama sadece commit olarak, içerikleri kalıyor)
+git reset 432KGIWJGORKF2P4R2LPĞ3LPFL --> key 4. commite ait
+git reset --hard 432KGIWJGORKF2P4R2LPĞ3LPFL  --> 5 ve 6. committeki şeyleride silerek tamamen siler
+
+git reverse 	4234ukı6j54ko53p4ko543 --> 4. commiti silmez ama içeriği düzenlemek için yeni commit açar.
+Ben eski bir commiti düzenleyeyim ama geçmişte dursun silinmesin, yeni commit açarak üzerine yazma gibi olacak.
+
+RESET REVERT FARKI
+reset --> resetlenen committen sonrakileri sil.
+revert --> commit silinmesin geçmişte kalsın ama yeni commit atarak düzenleyeyim
+
+git rebase -- kullanma ama bil , merge yapılan 2 branchi (3 farklı noktada olsun) sırasına bakmaksızın direk branch bazında sıralar  master -> feat gibi buda çok büyük sorunlar açabilir.
+
+
+GİTHUB
+git remote add origin https://giyhub.com/codersclubtr/GitHubTest.git  ->> uzaktaki bu repoyu kullan (origin yap)
+
+git push -u origin master  --> commitleri origindeki master branchine (repoya push et) gönder.
+git push --> commitleri push yapar
+
+FARKI 
+Eğer daha önce git push -u origin master komutunu en az bir kez kullandıysan,
+Artık Git bilir ki:
+“Bu yerel dal, origin/master dalına bağlı.”
+
+git remote --> uzaktaki (remote) depoları gösterir
+git push origin feat --> branchi push yap origin bağlantısına
+
+Able to merge. These branches can be automatically merged --> 
+“Bu iki dal (master ve feature) arasında bir fark var ama Git bunları otomatik olarak birleştirebilir, senin elle müdahale etmene gerek yok.”
+
+PULL Request (çekme isteği) --> “Ben değişiklikler yaptım, bunları ana projeye eklemek ister misiniz?
+
+Neden konsolda merge yapıp push yaptıktn sonra git push reques tyapmadan merge yapmıyor?
+çünkü localde yaptğın merge uzaktakinde işleme alınmaz . git push origin feat yaparak sadece feat branchini gönderiyorsun masterı değil.
+
+git branch -r --> remote olan branchleri gösterir
+git checkout origin/master --> uzak sunuya geçmek ve değişikikleri izlemek için gitlog, git status
+
+
+MASTER  <-- ORIGIN/MASTER'dan 1 commit bile gerideyse??
+
+git fetch origin master --> githubda değişiklikleri konsolda izler ve konsolda gösterir git status, git log vs ile 
+git pull origin master --> GitHub'daki değişikliklerin tamamını local repoya uygular. Github-konsol senkron yapar eşitler (izleme aşamasında yine değişikliklik yapılabilir.Örnek üçüncü bir dosya oluşturdun)
+
+pull request (değişiklikleri Github'da uygula) <zıttı> git pull(değişiklikleri konsolda uygula)
+
