@@ -8,8 +8,8 @@ touch not.txt -> dosya oluşturur
 powershell  ni not.txt -i file
 
 rm not.txt -> dosyayı siler () alt klasörde veya aynı dizinde bulunmalı
-rm -rf git-Klasörü -> klasörü siler
-
+Remove-Item -Recurse -Force .git  -Klasörü -> klasörü siler
+ 
 git config --global user.name "Muhammed Taha Kızıkoğlu"
 git config --global user.email "tkizikoglu10@gmail.com"
 terminalde bu bölümde yazan bilglerin sahibi tarafından commit atıldığı repoda gözükür. hangi e posta ve siim yazılıysa o atmış gibi görünecektir.
