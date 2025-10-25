@@ -112,11 +112,11 @@ git pull origin master --> GitHub'daki değişikliklerin tamamını local repoya
 
 pull request (değişiklikleri Github'da uygula) <zıttı> git pull(değişiklikleri konsolda uygula)
 
-Git clone -> katkı yapmak ve ortak çalışamk için 
+Git clone -> Başkasının projesini kendi pc ne indirir sadece fetch pull yapabilirsin . push yapamazsın
 git clone https://github.com/taha907/ThreeGame.git  
 clonladığın projede çalışmaya devam etmek için klasöre gir.
 
-Git Fork (Çatallandırmak) -> ben kendi yolumdan devam edeceğim. yaptığım değişiklikler benim kendi repolarımda gözüksün. sadece projeyi almış olayım.
+Git Fork (Çatallandırmak) -> önce folklayıp aynı projeyi kendi repolarında görünür yapıp kendi bilgisayarına kendi hesabından clone yaptıktan sonra defğişiklik yapabilir ve bunu daha sonra clone yaptığın kişiye istek olarak atabilirsin. ya kabul eder ya reddeder yolladığın değişiklik isteğini.
 
 
 
