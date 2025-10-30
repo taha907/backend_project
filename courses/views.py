@@ -1,7 +1,8 @@
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from datetime import date
+from .models import Course, Category
 
 data = {"programlama":"programlama kategorisine ait kurslar",
         "web-gelistirme":"web-geliştirme kategorisine ait kurslar",
@@ -41,19 +42,25 @@ db = {
 }
 
 def index(request):
-    kategoriler = db["categories"]
-    kurslar = []
-    for kurs in db["courses"]:
-        if kurs["isActive"]:
-            kurslar.append(kurs)
+    kategoriler = Category.objects.all()
+    kurslar = Course.objects.filter(isActive=1)
+
             
     #html'ye liste şeklinde action'dan 3. parametre kullanarak veri yolladık -> categories değişkeni ile
     return render(request,'courses/index.html',{'categories': kategoriler,
                                                 'courses':kurslar})
 
 
-def details(request,kurs_adi):
-    return HttpResponse(f"{kurs_adi} kursunun detay sayfası")
+def details(request,kurs_id):
+    try:
+        course = Course.objects.get(pk=kurs_id)
+       
+    except:
+        raise Http404()
+    context = {
+    'course':course
+    }
+    return render(request,'courses/details.html',context)
 
 def getCoursesByCategory(request,category_name):
     try:    

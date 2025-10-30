@@ -8,3 +8,7 @@ class Course(models.Model):
     imageUrl = models.CharField(max_length=50,blank=False)
     date = models.DateField()
     isActive = models.BooleanField()
+
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+    slug = models.CharField(max_length=40)
