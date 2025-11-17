@@ -53,12 +53,13 @@ def index(request):
                                                 'courses':kurslar})
 
 
-def details(request,kurs_id):
+def details(request,slug):
     try:
-        course = Course.objects.get(pk=kurs_id)
+        course = Course.objects.get(slug=slug)
        
     except:
         raise Http404()
+    
     context = {
     'course':course
     }
