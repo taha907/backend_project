@@ -15,6 +15,7 @@ Model --> Veri tabanındaki tablolara eşdeğerdir
 
 Oluşturulan Model yapısı        <--     Migrations    -->            VeriTabanı
 				                aradaki bağlantıyı sağlar
+veri tabanına yollamak için yapılan bir değişikliği migrations ile paketleyip SQL sorgusu olarak veri tabanına gönderilir.
 
 python manage.py makemigrations --> Model (örneğin models.py) dosyasında yapılan değişiklikleri alır ve bu değişiklikleri bir “göç dosyası” (migration file) haline getirir.
 
@@ -23,20 +24,33 @@ python manage.py migrate  --> Hazırlanan migration dosyalarını alır ve verit
 
 python manage.py runserver komutundan sonra uygulanmamış kaç migrations var uyarısını verir.
 
+
+######  SHELL YORUMLAYICISI NE YAPAR? ######
+1 -> Django shell, geliştiriciye şu tür işleri kod yazmadan, hızlıca terminal üzerinden test etme imkânı verir:
+Model testleri yapmak
+
+2 -> Shell, QuerySet’leri test etmek için çok kullanışlıdır.
+
+3 -> Kodlarını test etmek / debug yapmak
+
 <-------->   Kayıt Ekleme   <-------->
-python manage.py shell
-from courses.models import course
+python manage.py shell --> shell'i kullan
+from courses.models import Course  --> kullanacağın modeli aktar
 from datetime import datetime
+
+Course.objects.create(title="btk yazılım kursu",description="güzel kurs",imageUrl="1.jpg",date=datetime.now(),isActive=1)
+savelemeye gerek yok üstteki kullanımda
+
 kurs1 = Course(title="btk yazılım kursu",description="güzel kurs",imageUrl="1.jpg",date=datetime.now(),isActive=1)
 kurs1.save()
 kurs2 = Course(title="AI kursu",description="etkileyici",imageUrl="2.jpg",date=datetime.now(),isActive=1)
 kurs2.save()
+del kurs1 --> kurs1 i siler.
 kurs1.title -> "btk yazılım kursu"
 
 
 <-------->   KAYIT SORGULAMA   <-------->
-from courses.models import Course
-Course --> Courses appine ait bir model olduğunu gösterir
+from courses.models import Course  [Course --> Courses appine ait bir model olduğunu gösterir]
 kurslar = Course.objects.all() -> kayıtlı nesneleri gösterir (tablodaki her satıra karşılık)
 kurslar[0] --> tablodaki kayıtlı ilk objeyi getirir
 kurslar[0].title --> "btk yazılım kursu"
@@ -49,5 +63,5 @@ quit()
 from courses.models import Course --> Course modelini kullan
 Course.objects.filter(isActive=1)
 Course.objects.filter(date__gt='2022-01-02') --> bu tarihten önceki objeleri listeler. bu kod migratiın ile sql diline sorgu yollanırken (SELECT * FROM blog_entry WHERE pub_date <= '2006-01-01';) olur.
- Course.objects.filter(title__contains=""kurs,isActive=1)  -- 2 koşul içeren bir filtreleme
- 
+ Course.objects.filter(title__contains=""kurs,isActive=1)  --> 2 koşul içeren bir filtreleme
+ kurslar = Course.objects.filter( Q(A) | Q(B), isActive=1)  --> A veya B sorgularından birisi doğruysa ve isActive=1 olanları filtrele getir

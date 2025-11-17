@@ -40,13 +40,15 @@ db = {
         {"id":2, "name":"web geliştirme","slug":"web-gelistirme"},
         {"id":3, "name":"mobil uygulama","slug":"mobil-uygulama"}]
 }
-
+#her django view fonksiyonu zorunlu olarak request parameteresi alır.
 def index(request):
     kategoriler = Category.objects.all()
     kurslar = Course.objects.filter(isActive=1)
 
             
+    
     #html'ye liste şeklinde action'dan 3. parametre kullanarak veri yolladık -> categories değişkeni ile
+    # render(request, template, context)  context, view’dan template’e gönderilen değişkenlerin saklandığı sözlüktür.
     return render(request,'courses/index.html',{'categories': kategoriler,
                                                 'courses':kurslar})
 
