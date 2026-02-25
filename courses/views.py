@@ -45,8 +45,6 @@ def index(request):
     kategoriler = Category.objects.all()
     kurslar = Course.objects.filter(isActive=1)
 
-            
-    
     #html'ye liste şeklinde action'dan 3. parametre kullanarak veri yolladık -> categories değişkeni ile
     # render(request, template, context)  context, view’dan template’e gönderilen değişkenlerin saklandığı sözlüktür.
     return render(request,'courses/index.html',{'categories': kategoriler,
@@ -56,7 +54,6 @@ def index(request):
 def details(request,slug):
     try:
         course = Course.objects.get(slug=slug)
-       
     except:
         raise Http404()
     
@@ -66,11 +63,13 @@ def details(request,slug):
     return render(request,'courses/details.html',context)
 
 def getCoursesByCategory(request,category_name):
+    kategoriler = Category.objects.all()
+    kurslar = Course.objects.filter(isActive=1)
     try:    
         category_text = data[category_name]
         return render(request,"courses/kurslar.html",{
-            'category':category_name,
-            'category_text':category_text
+            'courses':kurslar,
+            'categories':kategoriler
         })
     except:
         return HttpResponseNotFound("yanlış kategori seçimi")

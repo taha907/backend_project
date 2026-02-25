@@ -119,4 +119,5 @@ clonladığın projede çalışmaya devam etmek için klasöre gir.
 Git Fork (Çatallandırmak) -> önce folklayıp aynı projeyi kendi repolarında görünür yapıp kendi bilgisayarına kendi hesabından clone yaptıktan sonra defğişiklik yapabilir ve bunu daha sonra clone yaptığın kişiye istek olarak atabilirsin. ya kabul eder ya reddeder yolladığın değişiklik isteğini.
 
 
+---Model admin---
 
