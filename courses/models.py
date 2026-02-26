@@ -23,6 +23,4 @@ class Course(models.Model):
     # 2) default="1" gibi değer girerek tüm kurları otomatik var olan bir kategoriye bağla 
     # related_name --> sorgu yaparken (course__category) e denktir.
     
-
-
-
+    

@@ -4,42 +4,8 @@ from django.urls import reverse
 from datetime import date
 from .models import Course, Category
 
-data = {"programlama":"programlama kategorisine ait kurslar",
-        "web-gelistirme":"web-geliştirme kategorisine ait kurslar",
-        "mobil-uygulama":"mobil geliştirme kategorisine ait kurslar"
-}
 
-db = {
-    "courses": [
-        {
-            "title":"javascript kursu",
-            "description":"javascript kursunun açıklamasıdır.",
-            "imageUrl":"1.png",
-            "slug":"javascript-kursu",
-            "date": date(2022,10,10),
-            "isActive":True
-        },
-         {
-            "title":"python kursu",
-            "description":"python kursunun açıklamasıdır.",
-            "imageUrl":"2.jpg",
-            "slug":"python-kursu",
-            "date": date(2023,10,10),
-            "isActive":True
-        },
-        {
-            "title":"web geliştirme kursu",
-            "description":"web kursunun açıklamasıdır.",
-            "imageUrl":"3.jpg",
-            "slug":"web-geliştirme",
-            "date": date(2024,10,10),
-            "isActive":True
-        }],
-    "categories" : [
-        {"id":1, "name":"programlama","slug":"programlama"},
-        {"id":2, "name":"web geliştirme","slug":"web-gelistirme"},
-        {"id":3, "name":"mobil uygulama","slug":"mobil-uygulama"}]
-}
+
 #her django view fonksiyonu zorunlu olarak request parameteresi alır.
 def index(request):
     kategoriler = Category.objects.all()
@@ -62,26 +28,12 @@ def details(request,slug):
     }
     return render(request,'courses/details.html',context)
 
-def getCoursesByCategory(request,category_name):
+def getCoursesByCategory(request,slug):
     kategoriler = Category.objects.all()
-    kurslar = Course.objects.filter(isActive=1)
-    try:    
-        category_text = data[category_name]
-        return render(request,"courses/kurslar.html",{
-            'courses':kurslar,
-            'categories':kategoriler
-        })
-    except:
-        return HttpResponseNotFound("yanlış kategori seçimi")
+    kurslar = Course.objects.filter(category__slug = slug, isActive=True)
 
-def getCoursesByCategoryId(request,category_id):
-    category_list = list(data.keys())
-    if(category_id>len(data)):
-        return HttpResponseNotFound("yanlış kategori seçimi")
-    
-    category = category_list[category_id - 1]
-
-    # url patternin nameini yeniden yepılandırır, args-> dinamik kısımları sırayla atar
-    redirect_url = reverse('courses_by_category',args=[category])
-    
-    return redirect(redirect_url)
+    return render(request,'courses/index.html',{
+        'categories':kategoriler,
+        'courses':kurslar,
+        'seciliKategori': slug
+    })

@@ -9,8 +9,13 @@ Anasayfa
         <div class="row">
             <div class="col-3">
                 <!--menu-->
-                {% include "courses/partials/_categories.html" %}
+                {% include "courses/partials/_categories.html" %}    
+                     <!--
+                Django'da bir sayfa render edilirken akış her zaman şöyledir: URL -> VIEW -> TEMPLATE.
+                Yanlış Anlaşılan: "Ben courses altındaki bir HTML parçasını çağırdım, o zaman courses.views de çalışır ve veriyi gönderir."
 
+Gerçek: include sadece bir "kopyala-yapıştır" işlemidir. Django, index.html içinde o include satırını görünce gider o dosyadaki HTML kodlarını alır ve ana dosyanın içine yapıştırır. Ama o kodların içindeki categories değişkeni boştur, çünkü o an çalışan pages.views ona bu bilgiyi vermemiştir.
+                -->
             </div>
             <div class="col-9" >
                 <!--content-->

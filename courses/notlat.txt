@@ -65,3 +65,30 @@ Course.objects.filter(isActive=1)
 Course.objects.filter(date__gt='2022-01-02') --> bu tarihten önceki objeleri listeler. bu kod migratiın ile sql diline sorgu yollanırken (SELECT * FROM blog_entry WHERE pub_date <= '2006-01-01';) olur.
  Course.objects.filter(title__contains=""kurs,isActive=1)  --> 2 koşul içeren bir filtreleme
  kurslar = Course.objects.filter( Q(A) | Q(B), isActive=1)  --> A veya B sorgularından birisi doğruysa ve isActive=1 olanları filtrele getir
+
+
+ ---------------------------- SHELL KONSOLU ---------------------
+
+ Teknik Terim: REPL
+Bilgisayar bilimlerinde bu yapıya REPL denir:
+R (Read): Girdiğin kodu okur.
+E (Eval): Kodu çalıştırır (Evaluate).
+P (Print): Sonucu ekrana basar.
+L (Loop): Tekrar başa döner ve yeni komut bekler. 
+
+1. Shell Konsolu Nedir?
+"Shell" (Kabuk), işletim sisteminin veya bir yazılımın (Django gibi) çekirdeğine erişmeni sağlayan bir arayüzdür.
+Normalde Django'da bir işlem yapmak için; kod yazarsın, dosyayı kaydedersin, tarayıcıyı açarsın ve sayfayı yenilersin. Shell ise sana "Etkileşimli" (Interactive) bir ortam sunar: Bir satır kod yazarsın, "Enter"a basarsın ve sonucu anında görürsün.
+
+2. Django Shell Ne İçin Kullanılır?
+Senin python manage.py shell yazarak girdiğin bu özel kabuk, şu amaçlarla kullanılır:
+Model Testi: Yeni oluşturduğun modellerin (Course, Category vb.) veritabanıyla nasıl konuştuğunu test etmek için kullanılır.
+Hızlı Veri Müdahalesi: Az önce yaptığın gibi, web arayüzüyle uğraşmadan veritabanına hızlıca veri eklemek, silmek veya güncellemek için birebirdir.
+Hata Ayıklama (Debugging): Yazdığın bir fonksiyonun veya sorgunun (filter, get vb.) nasıl sonuç verdiğini, projeyi ayağa kaldırmadan görebilirsin.
+Karmaşık Sorgular Denemek: Çok fazla tablonun olduğu bir yapıda, doğru veriyi çekip çekmediğini deneme-yanılma yoluyla burada bulursun.
+
+--- ADMİN PANELİ -------------
+
+python manage.py createsuperuser 
+ 
+
