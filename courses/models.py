@@ -14,7 +14,9 @@ class Course(models.Model):
     date = models.DateField(auto_now=True)
     isActive = models.BooleanField()
     slug = models.SlugField(default="",null=False, unique=True, db_index=True)
-    category=models.ForeignKey(Category,default=1,on_delete=models.CASCADE,related_name="kurslar")
+    categories=models.ManyToManyField(Category)
+    # One-to-Many için bir FK oluşturulur
+    # category=models.ForeignKey(Category,default=1,on_delete=models.CASCADE,related_name="kurslar")
     
     # many-to-one ilişkisi course-category(her kurs bağlı olduğu kategori idsini FK olarak sütununda tutar.
     # CASCADE -> Eğer bir kategori silinirse kategoriye bağlı olan tüm kurslarda veri tabanından silinsin

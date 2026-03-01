@@ -90,5 +90,19 @@ Karmaşık Sorgular Denemek: Çok fazla tablonun olduğu bir yapıda, doğru ver
 --- ADMİN PANELİ -------------
 
 python manage.py createsuperuser 
+# Register your models here
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
  
 
+ --------ÇOKA ÇOK İLİŞKİDE KAYIT EKLEME -----
+from courses.models import Course,Category
+programlama = Category.objects.get(name="Programlama")  programlama kategorisini alıyoruz
+kurs1 = Course.objects.get(pk=1)  ilk sıradaki kursu alalım
+kurs1.categories.add(programlama)   kursu programlama kategorisine ekleyelim
+programlama.course_set.add(Course.objects.get(pk=3)) programlama kategorisine pksı 3 olan kursu ekleyelim()
+hem kategori hem kurs tarafındada çok çok ilişki tablosuna iki taraftanda ekleme yapılabilir.
+
+örnek - Course.objects.get(pk=2).category_set().all() --> pksı 2 olan kursun tüm kategorilerini getir
+örnek - Course.objects.filter(isActive=True, categories__name = "programlama") --> aktif ve kategorisi programlama olan kurslaarı filtrele ve ver
+örnek -  Category.objects.get(name="Mobil Uygulama").course_set.add(*Course.objects.all()) 
