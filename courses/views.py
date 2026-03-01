@@ -3,6 +3,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from datetime import date
 from .models import Course, Category
+from django.core.paginator import Paginator
 
 
 
@@ -30,10 +31,19 @@ def details(request,slug):
 
 def getCoursesByCategory(request,slug):
     kategoriler = Category.objects.all()
-    kurslar = Course.objects.filter(category__slug = slug, isActive=True)
+    kurslar = Course.objects.filter(categories__slug = slug, isActive=True)
+
+
+    
+    #sayfa kaçar kaçar objelere bölünsün
+    paginator = Paginator(kurslar,2)
+    #2. 3. sayfalarda kaçar olsun? gelen isteği al,yoksa default=1 olsun
+    page = request.GET.get('page',1)
+    #kurslarıb son halini page olarak al
+    courses = paginator.get_page(page)
 
     return render(request,'courses/index.html',{
         'categories':kategoriler,
-        'courses':kurslar,
+        'courses':courses,
         'seciliKategori': slug
     })

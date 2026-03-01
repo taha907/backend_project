@@ -106,3 +106,8 @@ hem kategori hem kurs tarafındada çok çok ilişki tablosuna iki taraftanda ek
 örnek - Course.objects.get(pk=2).category_set().all() --> pksı 2 olan kursun tüm kategorilerini getir
 örnek - Course.objects.filter(isActive=True, categories__name = "programlama") --> aktif ve kategorisi programlama olan kurslaarı filtrele ve ver
 örnek -  Category.objects.get(name="Mobil Uygulama").course_set.add(*Course.objects.all()) 
+
+
+--sayfalama--
+paginatör sınıfı ile yapılır.
+mobil-programlama/?page=2 --> sayfa 2 ye git
