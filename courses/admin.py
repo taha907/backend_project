@@ -18,12 +18,12 @@ class CategoryAdmin(admin.ModelAdmin):
 #modelleri özelleştirebiliriz
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin): 
-    list_display=("title","isActive","slug","category_list")
+    list_display=("title","isActive","isHome","slug","category_list")
     search_fields=("title",)
     # readonly_fields=("slug",)
     prepopulated_fields={"slug":("title",),}
     list_filter=("title","isActive")
-    list_editable=("isActive",)
+    list_editable=("isActive","isHome")
 
     
 

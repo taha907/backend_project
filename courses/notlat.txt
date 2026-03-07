@@ -111,3 +111,6 @@ hem kategori hem kurs tarafındada çok çok ilişki tablosuna iki taraftanda ek
 --sayfalama--
 paginatör sınıfı ile yapılır.
 mobil-programlama/?page=2 --> sayfa 2 ye git
+
+
+Django template yapısı içinde kullandığın {% url %} etiketi (template tag), projen içindeki bir URL tanımına dinamik olarak ulaşmanı sağlayan bir "snippet" (kod parçacığı) gibidir.

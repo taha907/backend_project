@@ -13,6 +13,7 @@ class Course(models.Model):
     imageUrl = models.CharField(max_length=50,blank=False)
     date = models.DateField(auto_now=True)
     isActive = models.BooleanField()
+    isHome = models.BooleanField(default=False)
     slug = models.SlugField(default="",null=False, unique=True, db_index=True)
     categories=models.ManyToManyField(Category)
     # One-to-Many için bir FK oluşturulur
