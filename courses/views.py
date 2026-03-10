@@ -4,6 +4,7 @@ from django.urls import reverse
 from datetime import date
 from .models import Course, Category
 from django.core.paginator import Paginator
+from courses.forms import CourseCreateForm
 
 
 
@@ -33,7 +34,55 @@ def search(request):
     })
 
 def create_course(request):
-    render(request,"courses/create-course.html")
+    #FORM CLASS ile POST formunun kontrolü ve kaydedilmesi
+
+    if request.method == "POST":
+        form = CourseCreateForm(request.POST)
+
+        # form.is_valid() FORM CLASS aracılığıyla gelen
+        if form.is_valid():
+            kurs = Course(title=form.cleaned_data["title"],
+                          description=form.cleaned_data["description"],
+                          imageUrl=form.cleaned_data["imageUrl"],
+                          slug=form.cleaned_data["slug"])
+            kurs.save()
+            return redirect("/kurslar")
+    form = CourseCreateForm()
+    """
+    *AÇIKLAMA 
+    Form Class oluşturmadan Formdan gelen verileri alarak manuel hata kontrolü de yapıp veri tabanına kaydetme kodudur aşağıdaki
+    if request.method =="POST":
+        title = request.POST["title"]
+        description = request.POST["description"]
+        imageUrl=request.POST["imageUrl"]
+        slug=request.POST["slug"]
+        isActive= request.POST.get("isActive",False)
+        isHome=request.POST.get("isHome",False)
+
+        if isActive=="on":
+            isActive=True
+        if isHome=="on":
+            isHome=True
+
+        error = False
+        msg = ""
+        
+        if title == "":
+            error = True
+            msg += "Title bilgisini Giriniz. "
+
+        if len(title) < 5 and error==False:
+            error = True
+            msg += "Title bilgisi için daha uzun bir değer giriniz !"
+ 
+       if error:
+            return render(request,'courses/create-course.html',{'error':True, 'msg':msg})
+        kurs = Course(title=title,description=description,imageUrl=imageUrl,slug=slug,isActive=isActive,isHome=isHome)
+        kurs.save()
+        return redirect("/kurslar")   
+    """
+     
+    return render(request,'courses/create-course.html',{"form" : form})
      
 def details(request,slug):
     try:

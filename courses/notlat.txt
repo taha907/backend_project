@@ -114,3 +114,15 @@ mobil-programlama/?page=2 --> sayfa 2 ye git
 
 
 Django template yapısı içinde kullandığın {% url %} etiketi (template tag), projen içindeki bir URL tanımına dinamik olarak ulaşmanı sağlayan bir "snippet" (kod parçacığı) gibidir.
+
+----FORM-----
+2 türlü form türü var 
+GET -> sunucuya gönderilen istek url'nin bir parçasıdır. gönderilen ve urlde görünen filtreleme kelimesine QUERYSTRING denir.
+POST -> gönderilen bilgi url parçası olarak gitmez. yapılan isteğin gövdesi içinde gönderilken bilgiler gider sunucuya, yani url de görünmez.
+
+POST formu gönderceği bilgiyi geldiği aynı actiona geri gönderebilir.
+
+-------CSRF TOKEN ----
+gönderilen formun sunucu tarafından beklenen geçerli bir request tokeni vardır. Bir nevi kapı şifresi gibi. her bir post formu csrf token bilgisini de servera göndererek geçerli bir istek oluşturur.
+
+arayüzde her gelen form sunucu tarafından gönderilirken benzersiz bir token ile işaretlenip benzersiz olmasını sağlar güvenli açısından. Formu doldurup arayüzden sunucuya post isteğini yolladığımzda ise aynı token değerini sunucu kontrol ederek isteği kabul eder -aynı token değeriyse-
