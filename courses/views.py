@@ -1,10 +1,13 @@
+import os
+import random
+
 from django.http import HttpResponse, HttpResponseNotFound, Http404
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from datetime import date
-from .models import Course, Category
+from .models import Course, Category, UploadForm
 from django.core.paginator import Paginator
-from courses.forms import CourseCreateForm
+from courses.forms import CourseCreateForm, CourseEditForm
 
 
 
@@ -37,17 +40,17 @@ def create_course(request):
     #FORM CLASS ile POST formunun kontrolü ve kaydedilmesi
 
     if request.method == "POST":
-        form = CourseCreateForm(request.POST)
+        #Bu, formun veriye bağlı (bound) halidir.
+        form = CourseCreateForm(request.POST,request.FILES)
 
-        # form.is_valid() FORM CLASS aracılığıyla gelen
+        # form.is_valid() GEÇERLİ Mİ? FORM CLASS aracılığıyla gelen
         if form.is_valid():
-            kurs = Course(title=form.cleaned_data["title"],
-                          description=form.cleaned_data["description"],
-                          imageUrl=form.cleaned_data["imageUrl"],
-                          slug=form.cleaned_data["slug"])
-            kurs.save()
+            # form model sınıfı olarak course kullanıyor. course aynı zamanda bir model ve migrations yani veri tabani ile bağlantılı olduğundan form.save() kullanımı Course(veriler).save() ile aynıdır.
+            form.save()
             return redirect("/kurslar")
-    form = CourseCreateForm()
+    else:
+        #Bu, formun boş (unbound) halidir.
+        form = CourseCreateForm()
     """
     *AÇIKLAMA 
     Form Class oluşturmadan Formdan gelen verileri alarak manuel hata kontrolü de yapıp veri tabanına kaydetme kodudur aşağıdaki
@@ -83,7 +86,61 @@ def create_course(request):
     """
      
     return render(request,'courses/create-course.html',{"form" : form})
-     
+
+def course_list(request):
+    kurslar = Course.objects.all()
+    return render(request,'courses/course-list.html',{'courses':kurslar})
+
+def course_edit(request,id):
+    course = get_object_or_404(Course,pk=id)
+
+    #düzenleme bitip göndere basılırsa
+    if request.method == "POST":
+        #birinci parametre girilen input text bilgileri ile formu doldurur, ikinci parametre veritabanındaki kurs bilgisi
+        form = CourseEditForm(request.POST,request.FILES,instance=course)
+        form.save()
+        return redirect("course_list")
+    #sayaf ilk açıldığında düzenleme ekranında düzenşenecek eski bilgileri göster
+    else:
+        form = CourseEditForm(instance=course)
+    return render(request,"courses/edit-course.html",{"form":form})
+
+def course_delete(request,id):
+    course = get_object_or_404(Course,pk=id)
+
+    if request.method=="POST":
+        Course.objects.get(pk=id).delete()
+        return redirect('course_list')
+ 
+    return render(request,"courses/delete-course.html",{"course":course})
+
+def upload_image(request):
+    """
+ if request.method=="POST":
+        #çoklu resim yüklemede bu yöntem kullanılır.
+        uploaded_images = request.FILES.getlist('images')
+        for image in uploaded_images:
+            handle_uploaded_files(image)
+        return render(request,'courses/succesfull-image.html')
+ """ 
+    if request.method == "POST":
+        modelForm = UploadForm(image=request.FILES["image"])
+        modelForm.save()
+        return render(request,"courses/successful-image.html")
+    else:
+        modelForm = UploadForm()
+    return render(request,'courses/upload-image.html')
+
+  
+def handle_uploaded_files(file):
+    number = random.randint(1,99999)
+    filename, file_extensions = os.path.splitext(file.name)
+    name = filename + "_" + str(number) + file_extensions
+
+    with open("temp/"+name,"wb+") as destination:
+        for chunk in file.chunks():
+            destination.write(chunk)
+
 def details(request,slug):
     try:
         course = Course.objects.get(slug=slug)

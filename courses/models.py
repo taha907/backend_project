@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ImageField
 from django.utils.text import slugify
 
 # Create your models here.
@@ -10,9 +11,9 @@ class Category(models.Model):
 class Course(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
-    imageUrl = models.CharField(max_length=50,blank=False)
+    image = models.ImageField(upload_to="images",default="")
     date = models.DateField(auto_now=True)
-    isActive = models.BooleanField()
+    isActive = models.BooleanField(default=True)
     isHome = models.BooleanField(default=False)
     slug = models.SlugField(default="",null=False, unique=True, db_index=True)
     categories=models.ManyToManyField(Category)
@@ -26,4 +27,6 @@ class Course(models.Model):
     # 2) default="1" gibi değer girerek tüm kurları otomatik var olan bir kategoriye bağla 
     # related_name --> sorgu yaparken (course__category) e denktir.
     
-    
+# Model Class kullanarak Form ile resim yükleme || upload_to parametresi -> media klasörü altında hangi alt klasöre kaydedilsin?
+class UploadForm(models.Model):
+    image = models.ImageField(upload_to="images")

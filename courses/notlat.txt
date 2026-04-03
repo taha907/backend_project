@@ -90,6 +90,7 @@ Karmaşık Sorgular Denemek: Çok fazla tablonun olduğu bir yapıda, doğru ver
 --- ADMİN PANELİ -------------
 
 python manage.py createsuperuser 
+
 # Register your models here
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -126,3 +127,20 @@ POST formu gönderceği bilgiyi geldiği aynı actiona geri gönderebilir.
 gönderilen formun sunucu tarafından beklenen geçerli bir request tokeni vardır. Bir nevi kapı şifresi gibi. her bir post formu csrf token bilgisini de servera göndererek geçerli bir istek oluşturur.
 
 arayüzde her gelen form sunucu tarafından gönderilirken benzersiz bir token ile işaretlenip benzersiz olmasını sağlar güvenli açısından. Formu doldurup arayüzden sunucuya post isteğini yolladığımzda ise aynı token değerini sunucu kontrol ederek isteği kabul eder -aynı token değeriyse-
+
+
+---FORM--
+ 
+ formlar classlar aracılığıyla oluşturulup yönetilebilir. 
+ Aynı zamanda formlar halihazırda bulunan modeller üzerinden oluşturulup modellere ait veriler içinde formlar oluşturulabilir.
+
+ {{msg}} --> view'den gönderilen verileri htmlde kulalnmak için
+ {% ... %}  --> bir komut çalıştır
+ {% static %}  --> static dosyalara bakar.
+ {% url  %} --> url.py içindeki url name'ini değerini bulur
+
+ Form- Model Form - Model ile Form 
+ 3 farklı Form çeşididir.
+
+ Static Files --> sabittir kodla birlikte gelir. yazılımcı ayarlar
+ Media Files --> değişkendir. kullanıcılar ayarlar

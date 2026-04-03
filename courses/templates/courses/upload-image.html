@@ -1,0 +1,26 @@
+{%extends 'layout.html'%}
+{%load static%}
+
+{% block page_title %}
+Kurslar
+{% endblock %}
+
+{%block content %}
+<div class="container mt-3">
+        <div class="row">
+            <div class="col-12">
+                <!-- enctype ayarlanması image i parçalara bölerek sunucuya göndermeyi sağlar, yoksa metinmiş gibi algılar-->
+                <form action="{%url 'upload_image'%}" method="POST" >
+                    {% csrf_token %}
+                    <div class="input-group">
+  <input type="file" class="form-control" name='images' multiple="false">
+  <button class="btn btn-outline-secondary" type="submit" >Kaydet</button>
+</div>
+            </div>
+
+                </form>
+                
+            
+        </div>
+    </div>
+{%endblock%} 

@@ -1,0 +1,20 @@
+
+{%extends 'layout.html'%}
+{%load static%}
+
+Create Course
+{%block content %}
+<div class="container mt-3">
+        <div class="row">
+            <div class="col-12">
+    <form method="POST">
+    {% csrf_token %}
+    <p>"{{ course.title }}" kursunu silmek istediğinize emin misiniz?</p>
+    <button type="submit" class="btn btn-danger">Evet, Sil</button>
+    <a href="{% url 'course_list' %}">İptal</a>
+</form>
+               
+            </div>       
+        </div>
+    </div>
+{%endblock%}

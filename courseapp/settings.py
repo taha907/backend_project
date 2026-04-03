@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'courses',
-    'pages'
+    'pages',
+    'account'
 ]
 
 MIDDLEWARE = [
@@ -120,6 +121,15 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+
+#Django projenizde kullanıcıların web sitesi üzerinden yüklediği tüm gerçek dosyaların (resimler, PDF'ler, videolar vb.) bilgisayarınızdaki hangi fiziksel klasörde saklanacağını belirleyen ayardır.
+
+#Bilgisayardaki gerçek yerdir
+MEDIA_ROOT = BASE_DIR / "uploads"
+
+#Kullanıcıya görünen yerdir.
+MEDIA_URL="/media/"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
